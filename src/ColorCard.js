@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import ColorPicker from './ColorPicker';
+import { ChromePicker } from 'react-color';
 
 class ColorCard extends React.Component {
     // render() {
@@ -19,14 +19,18 @@ class ColorCard extends React.Component {
         this.state = {
             background: '#fff'
         };
+        this.id = this.props.id;
     }
 
     handleChange = (color) => {
         this.setState({
             background: color.hex
         });
-        // props.setColor;
     };
+
+    handleChangeComplete = (color) => {
+        this.props.setColor(this.id, color);
+    }
 
     render() {
         return (
@@ -35,9 +39,10 @@ class ColorCard extends React.Component {
                     <div style={{backgroundColor: this.state.background, width: '100%', height: 100}}></div>
                 </Card.Header>
                 <Card.Body>
-                    <ColorPicker
+                    <ChromePicker
                         color = {this.state.background}
                         onChange = {this.handleChange}
+                        onChangeComplete = {this.handleChangeComplete}
                     />
                 </Card.Body>
             </Card>
