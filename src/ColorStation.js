@@ -1,5 +1,6 @@
 import React from 'react';
 import ColorCard from './ColorCard';
+import Swatch from './Swatch';
 
 class ColorStation extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class ColorStation extends React.Component {
             numCards: 4,
             colors: {}
         };
-        this.setColor = this.setColor.bind(this);
+        this.updatePalette = this.updatePalette.bind(this);
     }
 
     // componentDidMount() {
@@ -40,25 +41,30 @@ class ColorStation extends React.Component {
     //     }
     // }
 
-    setColor(id, color) {
+    updatePalette(id, hex) {
         this.setState({
             colors: {
                 ...this.state.colors,
-                [id]: color.hex
+                [id]: hex
             }
         });
-        console.log(this.state.colors)
+        this.props.setPalette(this.state.colors);
     }
 
     render() {
         var cards = [];
+        var swatches = [];
         for (let i = 0; i < this.state.numCards; i++) {
-            cards.push(<ColorCard key = {i} id = {i} setColor = {this.setColor}/>)
+            cards.push(<ColorCard key = {i} id = {i} updatePalette = {this.updatePalette}/>)
+            swatches.push(<Swatch key = {i} color = {this.state.colors[i]}/>)
         }
 
         return (
-            <div className="colorStation">
-                {cards}
+            <div>
+                <div className="palette">{swatches}</div>
+                <div className="colorStation">
+                    {cards}
+                </div>
             </div>
         );
     }

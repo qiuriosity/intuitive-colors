@@ -22,6 +22,10 @@ class ColorCard extends React.Component {
         this.id = this.props.id;
     }
 
+    // componentDidMount() {
+    //     this.props.updatePalette(this.id, "#ffffff");
+    // }
+
     handleChange = (color) => {
         this.setState({
             background: color.hex
@@ -29,7 +33,7 @@ class ColorCard extends React.Component {
     };
 
     handleChangeComplete = (color) => {
-        this.props.setColor(this.id, color);
+        this.props.updatePalette(this.id, color.hex);
     }
 
     render() {
