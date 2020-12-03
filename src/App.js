@@ -8,6 +8,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
     constructor(props) {
@@ -27,12 +28,27 @@ class App extends React.Component {
 
     render() {
         return (
-          <div className="App">
-            <header className="App-header">
-              <ColorStation setPalette = {this.setPalette}/>
-              <FullPalette setPalette = {this.setPalette} base = {this.state.palette}/>
-            </header>
-          </div>
+            // <Router>
+            //     <div className="App">
+            //         <header className="App-header">
+            //             <Switch>
+            //                 <Route path = "/palette">
+            //                     <FullPalette setPalette = {this.setPalette} base = {this.state.palette}/>
+            //                 </Route>
+            //                 <Route path = "/">
+            //                     <ColorStation setPalette = {this.setPalette}/>
+            //                 </Route>
+            //             </Switch>
+            //         </header>
+            //     </div>
+            // </Router>
+
+            <div className="App">
+                <header className="App-header">
+                    <FullPalette setPalette = {this.setPalette} base = {this.state.palette}/>
+                    <ColorStation setPalette = {this.setPalette}/>
+                </header>
+            </div>
         );
     }
 }

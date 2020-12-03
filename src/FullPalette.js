@@ -1,6 +1,7 @@
 import React from 'react';
 import Swatch from './Swatch';
 
+const NUM_SHADES = 9;
 const shade = (light) => (light + 180) % 360;
 
 // https://css-tricks.com/converting-color-spaces-in-javascript/
@@ -138,7 +139,7 @@ function generateShades(hex, lighting) {
     let hsl = hexToHSL(hex);
     var shades = [];
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < NUM_SHADES; i++) {
         shades.push(computeShade(hsl, lighting, i - 4));
     }
 
@@ -176,9 +177,10 @@ class FullPalette extends React.Component {
         for (var key in this.state.base) {
             var shades = generateShades(this.state.base[key], this.state.lighting);
             var swatches = [];
+            console.log(shades);
 
             for (let i = 0; i < shades.length; i++) {
-                swatches.push(<Swatch key = {i * (key + 1)} color = {shades[i]}/>);
+                swatches.push(<Swatch key = {i + (key * NUM_SHADES)} color = {shades[i]}/>);
             }
 
             collection.push(<div className = "swatchCol">{swatches}</div>);

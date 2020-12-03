@@ -1,6 +1,7 @@
 import React from 'react';
 import ColorCard from './ColorCard';
 import Swatch from './Swatch';
+import Button from 'react-bootstrap/Button';
 
 class ColorStation extends React.Component {
     constructor(props) {
@@ -65,6 +66,7 @@ class ColorStation extends React.Component {
                 <div className="colorStation">
                     {cards}
                 </div>
+                <Button href="/palette" variant="outline-secondary">generate colors</Button>
             </div>
         );
     }
