@@ -3,13 +3,19 @@ import ColorCard from './ColorCard';
 import Swatch from './Swatch';
 import Button from 'react-bootstrap/Button';
 
+var numCards = 4;
+var colors = {};
+for (let i = 0; i < numCards; i++) {
+    colors[i] = "#ffffff";
+}
+
 class ColorStation extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            numCards: 4,
-            colors: {}
-        };
+        // this.state = {
+        //     numCards: 4,
+        //     colors: {}
+        // };
         this.updatePalette = this.updatePalette.bind(this);
     }
 
@@ -43,21 +49,22 @@ class ColorStation extends React.Component {
     // }
 
     updatePalette(id, hex) {
-        this.setState({
-            colors: {
-                ...this.state.colors,
-                [id]: hex
-            }
-        });
-        this.props.setPalette(this.state.colors);
+        // this.setState({
+        //     colors: {
+        //         ...this.state.colors,
+        //         [id]: hex
+        //     }
+        // });
+        colors[id] = hex;
+        this.props.setPalette(colors);
     }
 
     render() {
         var cards = [];
         var swatches = [];
-        for (let i = 0; i < this.state.numCards; i++) {
+        for (let i = 0; i < numCards; i++) {
             cards.push(<ColorCard key = {i} id = {i} updatePalette = {this.updatePalette}/>)
-            swatches.push(<Swatch key = {i} color = {this.state.colors[i]}/>)
+            swatches.push(<Swatch key = {i} color = {colors[i]}/>)
         }
 
         return (

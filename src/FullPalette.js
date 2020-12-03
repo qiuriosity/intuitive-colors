@@ -1,5 +1,6 @@
 import React from 'react';
 import Swatch from './Swatch';
+import Form from 'react-bootstrap/Form';
 
 const NUM_SHADES = 9;
 const shade = (light) => (light + 180) % 360;
@@ -17,8 +18,6 @@ function hexToHSL(H) {
         g = "0x" + H[3] + H[4];
         b = "0x" + H[5] + H[6];
     }
-
-    console.log(r, g, b);
 
     // Then to HSL
     r /= 255;
@@ -100,6 +99,7 @@ function HSLToHex(h,s,l) {
 }
 
 function computeShade(hsl, lighting, magnitude) {
+    // console.log(hsl);
     let newHSL = {};
     let hue = hsl["h"],
         saturation = hsl["s"],
@@ -108,17 +108,28 @@ function computeShade(hsl, lighting, magnitude) {
     // magnitude is -1 for highlights, +1 for shadows
     // ADJUSTING HUE
     // THINK ABT NEGATIVE MODULI AND STUFF
+    // if (hue > lighting) {
+    //     newHSL["h"] = (hue + (10 * magnitude) + 360) % 360;
+    // } else if (hue < lighting) {
+    //     newHSL["h"] = (hue - (10 * magnitude) + 360) % 360;
+    // } else {
+    //     newHSL["h"] = hue;
+    // }
+
+    // console.log(hue, lighting);
     if (hue > lighting) {
-        newHSL["h"] = (hue + (10 * magnitude)) % 360;
+        newHSL["h"] = (hue + (6 * magnitude) + 360) % 360;
     } else if (hue < lighting) {
-        newHSL["h"] = (hue - (10 * magnitude) + 360) % 360;
+        newHSL["h"] = (hue - (6 * magnitude) + 360) % 360;
     } else {
         newHSL["h"] = hue;
     }
 
     // ADJUSTING SATURATION AND VALUE
-    newHSL["s"] = (saturation + (15 * magnitude)) % 100;
-    newHSL["l"] = (value - (15 * magnitude)) % 100;
+    // newHSL["s"] = saturation + (15 * magnitude);
+    // newHSL["l"] = value - (15 * magnitude);
+    newHSL["s"] = saturation + (9 * magnitude);
+    newHSL["l"] = value - (9 * magnitude);
 
     if (newHSL["s"] > 100) {
         newHSL["s"] = 100;
@@ -132,6 +143,7 @@ function computeShade(hsl, lighting, magnitude) {
         newHSL["l"] = 0;
     }
 
+    // console.log(newHSL);
     return HSLToHex(newHSL["h"], newHSL["s"], newHSL["l"]);
 }
 
@@ -151,18 +163,21 @@ class FullPalette extends React.Component {
         super(props);
         this.state = {
             lighting: 60,
-            base: this.props.base,
+            // base: this.props.base,
             colors: {}
         };
-        // console.log(hexToHSL("#865237"));
-        console.log(generateShades("#865237", this.state.lighting));
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            base: nextProps.base
-        });
-        console.log(this.state.base);
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({
+    //         base: nextProps.base
+    //     });
+    //     // console.log(this.state.base);
+    // }
+
+    componentDidMount() {
+        console.log("mounted");
+        console.log(this.props.base);
     }
 
     updateLighting(value) {
@@ -174,8 +189,8 @@ class FullPalette extends React.Component {
     render() {
         var collection = [];
 
-        for (var key in this.state.base) {
-            var shades = generateShades(this.state.base[key], this.state.lighting);
+        for (var key in this.props.base) {
+            var shades = generateShades(this.props.base[key], this.state.lighting);
             var swatches = [];
             console.log(shades);
 
@@ -187,8 +202,10 @@ class FullPalette extends React.Component {
         }
 
         return (
-            <div className = "swatchRow">
-                {collection}
+            <div>
+                <div className = "swatchRow">
+                    {collection}
+                </div>
             </div>
         );
     }

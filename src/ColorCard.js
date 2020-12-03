@@ -23,13 +23,15 @@ class ColorCard extends React.Component {
     }
 
     // componentDidMount() {
-    //     this.props.updatePalette(this.id, "#ffffff");
+    //     // this.props.updatePalette(this.id, "#ffffff");
+    //     console.log("i am mounted" + this.id);
     // }
 
     handleChange = (color) => {
         this.setState({
             background: color.hex
         });
+        // this.props.updatePalette(this.id, color.hex);
     };
 
     handleChangeComplete = (color) => {
