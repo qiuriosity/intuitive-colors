@@ -176,7 +176,6 @@ class FullPalette extends React.Component {
     // }
 
     componentDidMount() {
-        console.log("mounted");
         console.log(this.props.base);
     }
 
@@ -192,7 +191,7 @@ class FullPalette extends React.Component {
         for (var key in this.props.base) {
             var shades = generateShades(this.props.base[key], this.state.lighting);
             var swatches = [];
-            console.log(shades);
+            // console.log(shades);
 
             for (let i = 0; i < shades.length; i++) {
                 swatches.push(<Swatch key = {i + (key * NUM_SHADES)} color = {shades[i]}/>);
