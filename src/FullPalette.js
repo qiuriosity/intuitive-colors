@@ -3,7 +3,9 @@ import Swatch from './Swatch';
 import Form from 'react-bootstrap/Form';
 
 const NUM_SHADES = 9;
-const shade = (light) => (light + 180) % 360;
+// const shade = (light) => (light + 180) % 360;
+const modCalc = (a, b) => ((a % b) + b) % b;
+const shade = (light) => modCalc(light + 180, 360);
 
 // https://css-tricks.com/converting-color-spaces-in-javascript/
 function hexToHSL(H) {
@@ -117,10 +119,20 @@ function computeShade(hsl, lighting, magnitude) {
     // }
 
     // console.log(hue, lighting);
-    if (hue > lighting) {
-        newHSL["h"] = (hue + (6 * magnitude) + 360) % 360;
-    } else if (hue < lighting) {
-        newHSL["h"] = (hue - (6 * magnitude) + 360) % 360;
+    // if (hue > lighting) {
+    //     newHSL["h"] = (hue + (6 * magnitude) + 360) % 360;
+    // } else if (hue < lighting) {
+    //     newHSL["h"] = (hue - (6 * magnitude) + 360) % 360;
+    // } else {
+    //     newHSL["h"] = hue;
+    // }
+
+    let huePosition = modCalc(hue - lighting, 360);
+    let shadeDiff = modCalc(hue - shade(lighting), 360);
+    if (huePosition > 180) {
+        newHSL["h"] = modCalc(shade(lighting) + ((0.93 ** magnitude) * shadeDiff), 360);
+    } else if (huePosition < 180 && huePosition > 0) {
+        newHSL["h"] = modCalc(shade(lighting) - ((0.93 ** magnitude) * shadeDiff), 360);
     } else {
         newHSL["h"] = hue;
     }
@@ -185,6 +197,12 @@ class FullPalette extends React.Component {
         });
     }
 
+    handleChange = e => {
+        this.setState({
+            lighting: e.target.value
+        });
+    };
+
     render() {
         var collection = [];
 
@@ -201,13 +219,44 @@ class FullPalette extends React.Component {
         }
 
         return (
-            <div>
-                <div className = "swatchRow">
+            <div id = "paletteStation">
+                <Form>
+                    <Form.Group controlId="formBasicRangeCustom">
+                        <Form.Control type="range" custom
+                            id = "lightingSlider"
+                            min = "60" max = "420"
+                            value = {this.state.lighting}
+                            onChange = {this.handleChange}
+                            step = "1"
+                        />
+                    </Form.Group>
+                </Form>
+                <div className = "swatchCollection">
                     {collection}
                 </div>
+                <Form>
+                    <Form.Group controlId="formBasicRangeCustom">
+                        <Form.Control type="range" custom
+                            id = "lightingSlider"
+                            min = "60" max = "420"
+                            value = {this.state.lighting}
+                            onChange = {this.handleChange}
+                            step = "1"
+                        />
+                    </Form.Group>
+                </Form>
             </div>
         );
     }
+
+    // <input
+    //     id = "lightingSlider"
+    //     type = "range"
+    //     min = "0" max = "360"
+    //     value = {this.state.lighting}
+    //     onChange = {this.handleChange}
+    //     step = "1"
+    // />
 }
 
 export default FullPalette;
