@@ -39,10 +39,13 @@
 
 .colorStation {
     display: flex;
+    width: 100vw;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .colorStation > * {
-    margin: 0px 40px;
+    margin: 10px 20px;
 }
 
 .squareSwatch {
@@ -52,22 +55,50 @@
 
 .palette {
     display: flex;
+    height: 90px;
     justify-content: center;
     align-items: center;
     padding-bottom: 30px;
+}
+
+.button {
+    margin: 30px;
 }
 
 .circleSwatch {
     box-shadow: 0 0 2px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.3);
     border-radius: 50%;
     margin: 10px 10px;
+    width: 50px;
+    height: 50px;
+    transition: width 0.5s, height 0.5s;
+}
+
+.circleSwatch:hover {
+    width: 75px;
+    height: 75px;
 }
 
 .swatchCol {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
 }
 
-.swatchRow {
+.swatchCollection {
     display: flex;
+    justify-content: center;
+    width: 300px;
+}
+
+#paletteStation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightingSlider {
+    transform: rotate(90deg);
+    order: 1;
 }

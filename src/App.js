@@ -13,20 +13,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            palette: {}
-        };
+
+        this.prevPalette = JSON.parse(localStorage.getItem("palette"));
+        if (this.prevPalette !== null) {
+            this.state = {
+                palette: this.prevPalette
+            };
+        } else {
+            this.state = {
+                palette: {}
+            };
+        }
         this.setPalette = this.setPalette.bind(this);
     }
 
     setPalette(palette) {
         this.setState({
             palette: palette
+        }, () => {
+            localStorage.setItem("palette", JSON.stringify(this.state.palette))
         });
         console.log(this.state.palette);
     }
 
     render() {
+        console.log(this.state.palette);
         return (
             <Router>
                 <div className="App">

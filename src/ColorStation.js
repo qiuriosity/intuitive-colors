@@ -16,7 +16,11 @@ class ColorStation extends React.Component {
         //     numCards: 4,
         //     colors: {}
         // };
+        this.state = {
+            colors: colors
+        };
         this.updatePalette = this.updatePalette.bind(this);
+        this.addCard = this.addCard.bind(this);
     }
 
     // componentDidMount() {
@@ -48,6 +52,14 @@ class ColorStation extends React.Component {
     //     }
     // }
 
+    addCard() {
+        colors[numCards] = "#ffffff";
+        numCards++;
+        this.setState({
+            colors: colors
+        });
+    }
+
     updatePalette(id, hex) {
         // this.setState({
         //     colors: {
@@ -56,6 +68,9 @@ class ColorStation extends React.Component {
         //     }
         // });
         colors[id] = hex;
+        this.setState({
+            colors: colors
+        });
         this.props.setPalette(colors);
     }
 
@@ -64,7 +79,7 @@ class ColorStation extends React.Component {
         var swatches = [];
         for (let i = 0; i < numCards; i++) {
             cards.push(<ColorCard key = {i} id = {i} updatePalette = {this.updatePalette}/>)
-            swatches.push(<Swatch key = {i} color = {colors[i]}/>)
+            swatches.push(<Swatch key = {i} color = {this.state.colors[i]}/>)
         }
 
         return (
@@ -73,7 +88,8 @@ class ColorStation extends React.Component {
                 <div className="colorStation">
                     {cards}
                 </div>
-                <Button href="/palette" variant="outline-secondary">generate colors</Button>
+                <Button className="button" href="/palette" variant="outline-secondary">generate colors</Button>
+                <Button className="button" onClick = {this.addCard} variant="outline-secondary">add</Button>
             </div>
         );
     }
