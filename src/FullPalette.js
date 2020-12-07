@@ -212,7 +212,7 @@ class FullPalette extends React.Component {
         this.state = {
             lighting: 60,
             // base: this.props.base,
-            colors: {},
+            // colors: {},
             numShades: 9
         };
     }

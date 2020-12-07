@@ -20,8 +20,7 @@ class ColorStation extends React.Component {
         // };
         this.state = {
             colors: colors,
-            showPalette: false,
-            showPrompt: true
+            showPalette: false
         };
         this.updatePalette = this.updatePalette.bind(this);
         this.addCard = this.addCard.bind(this);
@@ -80,8 +79,7 @@ class ColorStation extends React.Component {
 
     toggleDisplay = () => {
         this.setState({
-            showPalette: true,
-            showPrompt: false
+            showPalette: true
         });
     };
 
