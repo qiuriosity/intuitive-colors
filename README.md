@@ -1,4 +1,6 @@
-intuitive colors: a resource for artists and content creators that generates customizable, natural shading palettes from a user-selected set of base colors. This project was originally created as a final project for CS50, but will (hopefully) continue to be updated and optimized in the future.
+# intuitive colors  
+
+A resource for artists and content creators that generates customizable, natural shading palettes from a user-selected set of base colors. This project was originally created as a final project for CS50, but will (hopefully) continue to be updated and optimized in the future.
 
 # about this application
 
