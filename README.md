@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+intuitive colors: a resource for artists and content creators that generates customizable, natural shading palettes from a user-selected set of base colors. This was originally created as a final project for CS50, but will (hopefully) continue to be updated and optimized in the future.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# about this application
 
-## Available Scripts
+Creating natural-looking palettes for artistic work requires dynamic shading that accounts for environmental light, as well as colors' individual hues in relation to the desired shadow hue. This application allows users to designate a palette of foundational colors that make up the basic aspects of their project (eg. a base skin, hair, or landscape color). Using this base palette, intuitive colors creates a larger palette consisting of compatible shades and highlights that can be used along with the foundational colors. Users can customize the size of the generated palette, as well as environmental lighting and dullness.
 
-In the project directory, you can run:
+# configuration & usage
 
-### `yarn start`
+## running the application w/React
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Running the downloaded version of this application on a local device requires installation of [Node.js](https://nodejs.org/en/) and [yarn](https://classic.yarnpkg.com/en/docs/install/).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+After navigating to the project directory in terminal, execute `yarn start` to start the application and go to [http://localhost:3000](http://localhost:3000). If making any alterations to the application, visit the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started) for more details.
 
-### `yarn test`
+## selecting base palette
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You must select colors to add to your base palette before you can generate a new palette. Note that your base palette should only consist of *foundational* colors. For any given object, this is the color that makes up the bulk of the object's appearance. For example: if you wanted to generate shades for an apple, the base shade you should choose should be the color that you would attribute to the apple if you disregarded shading, highlighting, and environmental light.
 
-### `yarn build`
+To select base colors, use the color pickers provided (one per color). The slider on each color picker can also be used to adjust the hue of the color. The default number of base colors is four; in the event that you need more, click the plus sign to include an additional color.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## navigating the fully generated palette
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Once you've selected all your base colors, simply click "generate colors" to navigate to your full palette created by intuitive colors.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### I like this specific color in the palette. How do I know what color this is?
 
-### `yarn eject`
+intuitive colors allows users to hover over the swatch of a specific color to view the hex code, which can then be integrated into their artwork or media-related projects. For users on touch-screen devices, simply focus on the swatch by tapping, and the same overlay will appear.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### What if I don't need so many different shades? What if I want to see even more shades?
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To increase or decrease the amount of shades and highlights, use the + and - buttons on the right panel of the color palette. A single use of these controls will either add or remove one pair of shades and highlights for each base color. This feature allows users to generate a wider spectrum of shades when their work has a deeper range of light and dark features. Likewise, you can choose to narrow the spectrum when such breadth is not needed.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### I like the general distribution of these shades, but I need something duller/more vibrant across the board.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Using the vibrancy controls (also located on the right panel) will result in saturation and value changes for all colors in the generated palette, resulting in an overall duller or more saturated and bright appearance.
 
-## Learn More
+### The colors generated seem to work well under natural daylight, but I need colors that work with more artifical/unique lighting.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+By default, intuitive colors generates color palettes compatible with yellow light, which most closely resembles the natural effects of daylight. Thus, the palettes generated will show how your base colors, as well as their shadows and highlights, would look under typical daylight.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Changing the lighting is simple: use the slider on the left panel to adjust the color of the light. Moving downwards on the slider will take you counterclockwise around the color wheel (in the direction of cooler colors, then back to yellow), and vice versa. Note that some lighting effects may produce bizarre-looking color palettes; the base colors will also change according to the lighting, because they will appear different in differently-lit environments.
 
-### Code Splitting
+# credits & implementation details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Color pickers are sourced from [this collection](https://casesandberg.github.io/react-color/). Additionally: some UI features implemented through React Bootstrap, & hex/HSL conversion functions sourced from [here](https://css-tricks.com/converting-color-spaces-in-javascript/).
