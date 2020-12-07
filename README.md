@@ -4,7 +4,7 @@ A resource for artists and content creators that generates customizable, natural
 
 # about this application
 
-Creating natural-looking palettes for artistic work requires dynamic shading that accounts for environmental light, as well as colors' individual hues in relation to the desired shadow hue. This application allows users to designate a palette of foundational colors that make up the basic aspects of their project (eg. a base skin, hair, or landscape color). Using this base palette, intuitive colors creates a larger palette consisting of compatible shades and highlights that can be used along with the foundational colors. Users can customize the size of the generated palette, as well as environmental lighting and dullness.
+Creating natural-looking palettes for artistic work requires dynamic shading that accounts for environmental light, as well as colors' individual hues in relation to the desired shadow hue. This application allows users to designate a palette of foundational colors that make up the basic aspects of their project (eg. a base skin, hair, or landscape color). Using this base palette, **intuitive colors** creates a larger palette consisting of compatible shades and highlights that can be used along with the foundational colors. Users can customize the size of the generated palette, as well as environmental lighting and dullness.
 
 # configuration & usage
 
@@ -12,7 +12,9 @@ Creating natural-looking palettes for artistic work requires dynamic shading tha
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Running the downloaded version of this application on a local device requires installation of [Node.js](https://nodejs.org/en/) and [yarn](https://classic.yarnpkg.com/en/docs/install/).
 
-After navigating to the project directory in terminal, execute `yarn start` to start the application and go to [http://localhost:3000](http://localhost:3000). If making any alterations to the application, visit the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started) for more details.
+After navigating to the project directory in terminal, execute `yarn start` to start the application and go to [http://localhost:3000](http://localhost:3000). This application also requires the support of package dependencies, which can be obtained by executing `yarn install` in the directory (see package.json for a list of packages). If making any alterations to the application, visit the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started) for more details.
+
+*I don't have yarn:* using `npm start` and `npm install` should also work.
 
 ## selecting base palette
 
@@ -22,11 +24,11 @@ To select base colors, use the color pickers provided (one per color). The slide
 
 ## navigating the fully generated palette
 
-Once you've selected all your base colors, simply click "generate colors" to navigate to your full palette created by intuitive colors.
+Once you've selected all your base colors, simply click "generate colors" to navigate to your full palette created by **intuitive colors**.
 
 ### I like this specific color in the palette. How do I know what color this is?
 
-intuitive colors allows users to hover over the swatch of a specific color to view the hex code, which can then be integrated into their artwork or media-related projects. For users on touch-screen devices, simply focus on the swatch by tapping, and the same overlay will appear.
+**intuitive colors** allows users to hover over the swatch of a specific color to view the hex code, which can then be integrated into their artwork or media-related projects. For users on touch-screen devices, simply focus on the swatch by tapping, and the same overlay will appear.
 
 ### What if I don't need so many different shades? What if I want to see even more shades?
 
@@ -38,10 +40,10 @@ Using the vibrancy controls (also located on the right panel) will result in sat
 
 ### The colors generated seem to work well under natural daylight, but I need colors that work with more artifical/unique lighting.
 
-By default, intuitive colors generates color palettes compatible with yellow light, which most closely resembles the natural effects of daylight. Thus, the palettes generated will show how your base colors, as well as their shadows and highlights, would look under typical daylight.
+By default, **intuitive colors** generates color palettes compatible with yellow light, which most closely resembles the natural effects of daylight. Thus, the palettes generated will show how your base colors, as well as their shadows and highlights, would look under typical daylight.
 
 Changing the lighting is simple: use the slider on the left panel to adjust the color of the light. Moving downwards on the slider will take you counterclockwise around the color wheel (in the direction of cooler colors, then back to yellow), and vice versa. Note that some lighting effects may produce bizarre-looking color palettes; the base colors will also change according to the lighting, because they will appear different in differently-lit environments.
 
 # credits & implementation details
 
-Color pickers are sourced from [this collection](https://casesandberg.github.io/react-color/). Additionally: some UI features implemented through React Bootstrap, & hex/HSL conversion functions sourced from [here](https://css-tricks.com/converting-color-spaces-in-javascript/).
+Color pickers are sourced from [this collection](https://casesandberg.github.io/react-color/). Additionally: some UI features implemented through [React Bootstrap](https://react-bootstrap.github.io/), & hex/HSL conversion functions sourced from [here](https://css-tricks.com/converting-color-spaces-in-javascript/).
