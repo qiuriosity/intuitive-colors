@@ -1,8 +1,8 @@
 import React from 'react';
 import Swatch from './Swatch';
 import Form from 'react-bootstrap/Form';
+import { Plus, Dash, BrightnessHigh, BrightnessLow } from 'react-bootstrap-icons';
 
-const NUM_SHADES = 9;
 // const shade = (light) => (light + 180) % 360;
 const modCalc = (a, b) => ((a % b) + b) % b;
 const shade = (light) => modCalc(light + 180, 360);
@@ -159,15 +159,51 @@ function computeShade(hsl, lighting, magnitude) {
     return HSLToHex(newHSL["h"], newHSL["s"], newHSL["l"]);
 }
 
-function generateShades(hex, lighting) {
+function generateShades(hex, lighting, numShades) {
     let hsl = hexToHSL(hex);
     var shades = [];
 
-    for (let i = 0; i < NUM_SHADES; i++) {
-        shades.push(computeShade(hsl, lighting, i - 4));
+    for (let i = 0; i < numShades; i++) {
+        shades.push(computeShade(hsl, lighting, i - (Math.floor(numShades / 2))));
     }
 
     return shades;
+}
+
+function intensifyColor(hsl, factor) {
+    let newHSL = {};
+    let hue = hsl["h"],
+        saturation = hsl["s"],
+        value = hsl["l"];
+
+    newHSL["h"] = hue;
+    newHSL["s"] = saturation + (10 * factor);
+    newHSL["l"] = value + (5 * factor);
+
+    if (newHSL["s"] > 100) {
+        newHSL["s"] = 100;
+    } else if (newHSL["s"] < 0) {
+        newHSL["s"] = 0;
+    }
+
+    if (newHSL["l"] > 100) {
+        newHSL["l"] = 100;
+    } else if (newHSL["l"] < 0) {
+        newHSL["l"] = 0;
+    }
+
+    return HSLToHex(newHSL["h"], newHSL["s"], newHSL["l"]);
+}
+
+function intensifyPalette(palette, factor) {
+    let newPalette = {};
+
+    for (var key in palette) {
+        let hsl = hexToHSL(palette[key]);
+        newPalette[key] = intensifyColor(hsl, factor);
+    }
+
+    return newPalette;
 }
 
 class FullPalette extends React.Component {
@@ -176,7 +212,8 @@ class FullPalette extends React.Component {
         this.state = {
             lighting: 60,
             // base: this.props.base,
-            colors: {}
+            colors: {},
+            numShades: 9
         };
     }
 
@@ -197,6 +234,26 @@ class FullPalette extends React.Component {
         });
     }
 
+    addShades = () => {
+        this.setState(prevState => ({
+            numShades: prevState.numShades + 2
+        }))
+    };
+
+    removeShades = () => {
+        this.setState(prevState => ({
+            numShades: prevState.numShades - 2
+        }))
+    };
+
+    intensify = () => {
+        this.props.setPalette(intensifyPalette(this.props.base, 1));
+    }
+
+    deintensify = () => {
+        this.props.setPalette(intensifyPalette(this.props.base, -1));
+    }
+
     handleChange = e => {
         this.setState({
             lighting: e.target.value
@@ -207,12 +264,12 @@ class FullPalette extends React.Component {
         var collection = [];
 
         for (var key in this.props.base) {
-            var shades = generateShades(this.props.base[key], this.state.lighting);
+            var shades = generateShades(this.props.base[key], this.state.lighting, this.state.numShades);
             var swatches = [];
             // console.log(shades);
 
             for (let i = 0; i < shades.length; i++) {
-                swatches.push(<Swatch key = {i + (key * NUM_SHADES)} color = {shades[i]}/>);
+                swatches.push(<Swatch key = {i + (key * this.state.numShades)} color = {shades[i]}/>);
             }
 
             collection.push(<div className = "swatchCol">{swatches}</div>);
@@ -220,31 +277,39 @@ class FullPalette extends React.Component {
 
         return (
             <div id = "paletteStation">
-                <Form>
-                    <Form.Group controlId="formBasicRangeCustom">
-                        <Form.Control type="range" custom
-                            id = "lightingSlider"
-                            min = "60" max = "420"
-                            value = {this.state.lighting}
-                            onChange = {this.handleChange}
-                            step = "1"
-                        />
-                    </Form.Group>
-                </Form>
+                <div className = "sliderWidget rightText">
+                    <div>
+                        <p><i>welcome to intuitive colors.</i></p>
+                        <p>using a user-inputted base palette, intuitive colors generates a set of compatible shades and highlights by manipulating hsl values according to an algorithm.</p>
+                        <p>want to use a specific color value in your project? hover over the swatch (or tap on touch screen) to see the hex code. to expand or shrink the palette, use the plus/minus controls (right).</p>
+                    </div>
+                    <Form>
+                        <Form.Group controlId="formBasicRangeCustom">
+                            <Form.Control type="range" custom
+                                className = "lightingSlider"
+                                min = "60" max = "420"
+                                value = {this.state.lighting}
+                                onChange = {this.handleChange}
+                                step = "1"
+                            />
+                        </Form.Group>
+                    </Form>
+                </div>
                 <div className = "swatchCollection">
                     {collection}
                 </div>
-                <Form>
-                    <Form.Group controlId="formBasicRangeCustom">
-                        <Form.Control type="range" custom
-                            id = "lightingSlider"
-                            min = "60" max = "420"
-                            value = {this.state.lighting}
-                            onChange = {this.handleChange}
-                            step = "1"
-                        />
-                    </Form.Group>
-                </Form>
+                <div className = "sliderWidget leftText">
+                    <div className = "iconPanel">
+                        <button onClick = {this.addShades}><Plus className="icon" color="black"/></button>
+                        <button onClick = {this.removeShades}><Dash className="icon" color="black"/></button>
+                        <button onClick = {this.intensify}><BrightnessHigh className="icon" color="black"/></button>
+                        <button onClick = {this.deintensify}><BrightnessLow className="icon" color="black"/></button>
+                    </div>
+                    <div>
+                        <p>by default, intuitive colors generates colors based on a yellow lighting hue emulating that of natural light. for projects requiring more unique lighting or duller/more vibrant palettes, using the lighting slider and vibrancy controls will update the swatches to reflect your preferences. (mouse over a specific control to see a description of its function.)</p>
+                        <p>it is recommended to use the default lighting settings for projects involving standard shading and highlighting.</p>
+                    </div>
+                </div>
             </div>
         );
     }
