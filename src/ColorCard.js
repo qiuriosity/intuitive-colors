@@ -56,6 +56,7 @@ class ColorCard extends React.Component {
                 color = {this.state.background}
                 onChange = {this.handleChange}
                 onChangeComplete = {this.handleChangeComplete}
+                disableAlpha = {true}
             />
         );
     }
