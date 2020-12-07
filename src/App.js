@@ -2,6 +2,8 @@ import './App.css';
 import React from 'react';
 import ColorStation from './ColorStation';
 import FullPalette from './FullPalette';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import {
     BrowserRouter as Router,
     Switch,
@@ -39,9 +41,20 @@ class App extends React.Component {
     render() {
         console.log(this.state.palette);
         return (
-            <Router>
-                <div className="App">
-                    <header className="App-header">
+            <div className="App">
+                <Navbar className="Navbar" bg="#fbfbf8" fixed="top">
+                    <Navbar.Brand href="/">intuitive colors</Navbar.Brand>
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/">home</Nav.Link>
+                        <Nav.Link href="/about">about</Nav.Link>
+                        <Nav.Link href="https://github.com/seijoh">documentation</Nav.Link>
+                    </Nav>
+                    <Navbar.Text>
+                        <a href="https://github.com/seijoh">&#169; seijoh</a> on github for cs50.
+                    </Navbar.Text>
+                </Navbar>
+                <div className="App-body">
+                    <Router>
                         <Switch>
                             <Route path = "/palette">
                                 <FullPalette setPalette = {this.setPalette} base = {this.state.palette}/>
@@ -50,9 +63,9 @@ class App extends React.Component {
                                 <ColorStation setPalette = {this.setPalette}/>
                             </Route>
                         </Switch>
-                    </header>
+                    </Router>
                 </div>
-            </Router>
+            </div>
 
             // <div className="App">
             //     <header className="App-header">
