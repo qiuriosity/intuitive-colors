@@ -27,7 +27,7 @@ class Swatch extends React.Component {
             // <div className="circleSwatch" style={{backgroundColor: this.props.color, width: 50, height: 50}}></div>
             <OverlayTrigger
                 placement="bottom"
-                trigger = "hover"
+                trigger = {["hover", "focus"]}
                 overlay={<Tooltip id="button-tooltip-2">{this.props.color}</Tooltip>}
             >
                 <div className="circleSwatch"
