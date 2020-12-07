@@ -47,7 +47,7 @@ class App extends React.Component {
                     <Nav className="mr-auto">
                         <Nav.Link href="/">home</Nav.Link>
                         <Nav.Link href="/about">about</Nav.Link>
-                        <Nav.Link href="https://github.com/seijoh">documentation</Nav.Link>
+                        <Nav.Link href="https://github.com/seijoh/intuitive-colors">documentation</Nav.Link>
                     </Nav>
                     <Navbar.Text>
                         <a href="https://github.com/seijoh">&#169; seijoh</a> on github for cs50.
