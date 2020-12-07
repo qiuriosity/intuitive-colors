@@ -2,6 +2,8 @@ import React from 'react';
 import ColorCard from './ColorCard';
 import Swatch from './Swatch';
 import Button from 'react-bootstrap/Button';
+import { Transition, CSSTransition } from 'react-transition-group';
+import { PlusCircle } from 'react-bootstrap-icons';
 
 var numCards = 4;
 var colors = {};
@@ -17,7 +19,9 @@ class ColorStation extends React.Component {
         //     colors: {}
         // };
         this.state = {
-            colors: colors
+            colors: colors,
+            showPalette: false,
+            showPrompt: true
         };
         this.updatePalette = this.updatePalette.bind(this);
         this.addCard = this.addCard.bind(this);
@@ -74,6 +78,13 @@ class ColorStation extends React.Component {
         this.props.setPalette(colors);
     }
 
+    toggleDisplay = () => {
+        this.setState({
+            showPalette: true,
+            showPrompt: false
+        });
+    };
+
     render() {
         var cards = [];
         var swatches = [];
@@ -84,15 +95,45 @@ class ColorStation extends React.Component {
 
         return (
             <div>
-                <div className="palette">{swatches}</div>
-                <div className="colorStation">
+                <div>
+                    <h2>choose your base palette</h2>
+                    <p className="prompt">use the color pickers below to select base colors for your project. (click + to add more colors to your palette.)</p>
+                    <CSSTransition
+                        classNames = "palette"
+                        in = {this.state.showPalette}
+                        unmountOnExit
+                        appear = {true}
+                    >
+                        <div className="palette">{swatches}</div>
+                    </CSSTransition>
+                </div>
+                <div className="colorStation" onClick = {this.toggleDisplay}>
                     {cards}
+                    <button onClick = {this.addCard}><PlusCircle className="icon" color="black"/></button>
                 </div>
                 <Button className="button" href="/palette" variant="outline-secondary">generate colors</Button>
-                <Button className="button" onClick = {this.addCard} variant="outline-secondary">add</Button>
             </div>
         );
     }
+
+    // <CSSTransition
+    //     classNames = "ani"
+    //     in = {this.state.showPalette}
+    //     timeout = {1000}
+    //     unmountOnExit
+    // >
+    //     <div className="palette">{swatches}</div>
+    // </CSSTransition>
+    // <div className="palette">{swatches}</div>
+    // <CSSTransition
+    //     classNames = "prompt"
+    //     in = {this.state.showPrompt}
+    //     timeout = {1000}
+    //     unmountOnExit
+    //     appear = {true}
+    // >
+    //     <p className="prompt">use color pickers to select base colors for your project.</p>
+    // </CSSTransition>
 }
 
 export default ColorStation;
