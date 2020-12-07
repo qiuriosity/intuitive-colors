@@ -32,7 +32,7 @@ To increase or decrease the amount of shades and highlights, use the + and - but
 
 ### I like the general distribution of these shades, but I need something duller/more vibrant across the board.
 
-Using the vibrancy controls (also located on the right panel) will result in saturation and value changes for all colors in the generated palette, resulting in an overall duller or more saturated and bright appearance.
+Using the vibrancy controls (also located on the right panel) will result in saturation and value changes for all colors in the generated palette, creating an overall duller or more saturated and bright appearance.
 
 ### The colors generated seem to work well under natural daylight, but I need colors that work with more artifical/unique lighting.
 
