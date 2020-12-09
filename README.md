@@ -16,6 +16,8 @@ After navigating to the project directory in terminal, execute `yarn start` to s
 
 *I don't have yarn:* using `npm start` and `npm install` should also work.
 
+Alternatively, if running the application locally doesn't work, it has also been deployed to [this link](https://seijoh.github.io/intuitive-colors/).
+
 ## selecting base palette
 
 You must select colors to add to your base palette before you can generate a new palette. Note that your base palette should only consist of *foundational* colors. For any given object, this is the color that makes up the bulk of the object's appearance. For example: if you wanted to generate shades for an apple, the base shade you should choose should be the color that you would attribute to the apple if you disregarded shading, highlighting, and environmental light.
