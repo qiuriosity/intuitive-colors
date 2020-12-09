@@ -20,7 +20,7 @@ After navigating to the project directory in terminal, execute `yarn start` to s
 
 You must select colors to add to your base palette before you can generate a new palette. Note that your base palette should only consist of *foundational* colors. For any given object, this is the color that makes up the bulk of the object's appearance. For example: if you wanted to generate shades for an apple, the base shade you should choose should be the color that you would attribute to the apple if you disregarded shading, highlighting, and environmental light.
 
-To select base colors, use the color pickers provided (one per color). The slider on each color picker can also be used to adjust the hue of the color. The default number of base colors is four; in the event that you need more, click the plus sign to include an additional color.
+To select base colors, use the color pickers provided (one per color). The slider on each color picker can also be used to adjust the hue of the color. The default number of base colors is four; in the event that you need more, click the plus sign to include an additional color. To decrease the amount of colors, click the minus sign to remove a color. Note that using the add/remove functions will automatically be applied to the end of the palette.
 
 ## navigating the fully generated palette
 
