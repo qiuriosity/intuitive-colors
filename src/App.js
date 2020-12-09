@@ -5,7 +5,7 @@ import FullPalette from './FullPalette';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route,
     Link
@@ -54,7 +54,7 @@ class App extends React.Component {
                     </Navbar.Text>
                 </Navbar>
                 <div className="App-body">
-                    <Router>
+                    <Router baseName="/">
                         <Switch>
                             <Route path = "/palette">
                                 <FullPalette setPalette = {this.setPalette} base = {this.state.palette}/>
