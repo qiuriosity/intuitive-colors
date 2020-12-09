@@ -3,11 +3,14 @@ import Swatch from './Swatch';
 import Form from 'react-bootstrap/Form';
 import { Plus, Dash, BrightnessHigh, BrightnessLow } from 'react-bootstrap-icons';
 
-// const shade = (light) => (light + 180) % 360;
+// https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
 const modCalc = (a, b) => ((a % b) + b) % b;
+
+// calculates true shadow hue given lighting hue
 const shade = (light) => modCalc(light + 180, 360);
 
-// https://css-tricks.com/converting-color-spaces-in-javascript/
+/* converts hex to HSL
+https://css-tricks.com/converting-color-spaces-in-javascript/ */
 function hexToHSL(H) {
     // Convert hex to RGB first
     let r = 0, g = 0, b = 0;
@@ -60,6 +63,8 @@ function hexToHSL(H) {
     return hsl;
 }
 
+/* converts HSL to hex
+https://css-tricks.com/converting-color-spaces-in-javascript/ */
 function HSLToHex(h,s,l) {
     s /= 100;
     l /= 100;
@@ -100,6 +105,14 @@ function HSLToHex(h,s,l) {
     return "#" + r + g + b;
 }
 
+/**
+* @desc calculates one new shade (either shadow or highlight) for base color
+* @param hsl (dict): HSL values for base shade
+* @param lighting (int): hue value for the lighting color
+* @param magnitude (int): number of shades away from base (negative for highlights, positive for shades)
+* magnitude of 1 = one shade away from base color; -2 = two highlights away from base color, etc.
+* @return (string) hex value of computed shade
+*/
 function computeShade(hsl, lighting, magnitude) {
     // console.log(hsl);
     let newHSL = {};
@@ -107,28 +120,12 @@ function computeShade(hsl, lighting, magnitude) {
         saturation = hsl["s"],
         value = hsl["l"];
 
-    // magnitude is -1 for highlights, +1 for shadows
-    // ADJUSTING HUE
-    // THINK ABT NEGATIVE MODULI AND STUFF
-    // if (hue > lighting) {
-    //     newHSL["h"] = (hue + (10 * magnitude) + 360) % 360;
-    // } else if (hue < lighting) {
-    //     newHSL["h"] = (hue - (10 * magnitude) + 360) % 360;
-    // } else {
-    //     newHSL["h"] = hue;
-    // }
-
-    // console.log(hue, lighting);
-    // if (hue > lighting) {
-    //     newHSL["h"] = (hue + (6 * magnitude) + 360) % 360;
-    // } else if (hue < lighting) {
-    //     newHSL["h"] = (hue - (6 * magnitude) + 360) % 360;
-    // } else {
-    //     newHSL["h"] = hue;
-    // }
-
+    // position of hue relative to lighting shade
     let huePosition = modCalc(hue - lighting, 360);
+    // distance between hue and true shadow hue
     let shadeDiff = modCalc(hue - shade(lighting), 360);
+
+    // depending on huePosition, move in direction closer to true shadow (for shades) or farther (for highlights)
     if (huePosition > 180) {
         newHSL["h"] = modCalc(shade(lighting) + ((0.92 ** magnitude) * shadeDiff), 360);
     } else if (huePosition < 180 && huePosition > 0) {
@@ -137,45 +134,36 @@ function computeShade(hsl, lighting, magnitude) {
         newHSL["h"] = hue;
     }
 
-    // ADJUSTING SATURATION AND VALUE
-    // newHSL["s"] = saturation + (15 * magnitude);
-    // newHSL["l"] = value - (15 * magnitude);
-
-    // newHSL["s"] = saturation + (9 * magnitude);
-    // newHSL["l"] = value - (9 * magnitude);
-    //
-    // if (newHSL["s"] > 100) {
-    //     newHSL["s"] = 100;
-    // } else if (newHSL["s"] < 0) {
-    //     newHSL["s"] = 0;
-    // }
-    //
-    // if (newHSL["l"] > 100) {
-    //     newHSL["l"] = 100;
-    // } else if (newHSL["l"] < 0) {
-    //     newHSL["l"] = 0;
-    // }
-
+    // if calculating shadows (not highlights), use 100 as target value for saturation and 0 as target for value
     if (magnitude >= 0) {
         let satDiff = 100 - saturation;
         let valDiff = value;
         newHSL["s"] = 100 - ((0.85 ** magnitude) * satDiff);
         newHSL["l"] = (0.72 ** magnitude) * valDiff;
-    } else {
+    } else { // for calculating highlights, use 0 as target value for saturation and 100 as target for value
         let satDiff = saturation;
         let valDiff = 100 - value;
         newHSL["s"] = (0.75 ** (-1 * magnitude)) * satDiff;
         newHSL["l"] = 100 - ((0.80 ** (-1 * magnitude)) * valDiff);
     }
 
-    console.log(newHSL);
+    // console.log(newHSL);
     return HSLToHex(newHSL["h"], newHSL["s"], newHSL["l"]);
 }
 
+/**
+* @desc generate complete spectrum of shades for base color
+* @param hex (string): hex code for base color
+* @param lighting (int): hue value for the lighting color
+* @param numShades (int): number of shades to generate
+* @return (list) generated shades
+*/
 function generateShades(hex, lighting, numShades) {
+    // convert to HSL
     let hsl = hexToHSL(hex);
     var shades = [];
 
+    // generate numShades shades, with equal amount of highlights and shadows
     for (let i = 0; i < numShades; i++) {
         shades.push(computeShade(hsl, lighting, i - (Math.floor(numShades / 2))));
     }
@@ -183,6 +171,12 @@ function generateShades(hex, lighting, numShades) {
     return shades;
 }
 
+/**
+* @desc change intensity of a color
+* @param hsl (dict): HSL values for color
+* @param factor (int): 1 to increase intensity, -1 to decrease intensity
+* @return (string) hex value of new color
+*/
 function intensifyColor(hsl, factor) {
     let newHSL = {};
     let hue = hsl["h"],
@@ -208,11 +202,18 @@ function intensifyColor(hsl, factor) {
     return HSLToHex(newHSL["h"], newHSL["s"], newHSL["l"]);
 }
 
+/**
+* @desc change intensity of entire palette
+* @param palette (dict)
+* @param factor (int): 1 to increase intensity, -1 to decrease intensity
+* @return (dict) new palette with changed intensity
+*/
 function intensifyPalette(palette, factor) {
     let newPalette = {};
 
     for (var key in palette) {
         let hsl = hexToHSL(palette[key]);
+        // change intensity of individual color in palette and add to new palette
         newPalette[key] = intensifyColor(hsl, factor);
     }
 
@@ -224,49 +225,46 @@ class FullPalette extends React.Component {
         super(props);
         this.state = {
             lighting: 60,
-            // base: this.props.base,
-            // colors: {},
             numShades: 9
         };
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({
-    //         base: nextProps.base
-    //     });
-    //     // console.log(this.state.base);
+    // componentDidMount() {
+    //     console.log(this.props.base);
     // }
 
-    componentDidMount() {
-        console.log(this.props.base);
-    }
-
+    // update new lighting values
     updateLighting(value) {
         this.setState({
             lighting: value
         });
     }
 
+    // increase number of shades calculated (+1 highlight and shadow)
     addShades = () => {
         this.setState(prevState => ({
             numShades: prevState.numShades + 2
         }))
     };
 
+    // decrease number of shades calculated (-1 highlight and shadow)
     removeShades = () => {
         this.setState(prevState => ({
             numShades: prevState.numShades - 2
         }))
     };
 
+    // intensify base palette (will change entire generated palette)
     intensify = () => {
         this.props.setPalette(intensifyPalette(this.props.base, 1));
     }
 
+    // deintensify pase palette
     deintensify = () => {
         this.props.setPalette(intensifyPalette(this.props.base, -1));
     }
 
+    // allows lighting slider to change lighting value
     handleChange = e => {
         this.setState({
             lighting: e.target.value
@@ -277,25 +275,30 @@ class FullPalette extends React.Component {
         var collection = [];
 
         for (var key in this.props.base) {
+            // generate shades from base palette passed through props
             var shades = generateShades(this.props.base[key], this.state.lighting, this.state.numShades);
             var swatches = [];
             // console.log(shades);
 
+            // create swatches for single base color
             for (let i = 0; i < shades.length; i++) {
                 swatches.push(<Swatch key = {i + (key * this.state.numShades)} color = {shades[i]}/>);
             }
 
+            // push swatches to whole palette
             collection.push(<div className = "swatch-col">{swatches}</div>);
         }
 
         return (
             <div id = "palette-station">
+                {/* left side panel */}
                 <div className = "control-panel textbox-r">
                     <div>
                         <p><i>welcome to intuitive colors.</i></p>
                         <p>using a user-inputted base palette, intuitive colors generates a set of compatible shades and highlights by manipulating hsl values according to an algorithm.</p>
                         <p>want to use a specific color value in your project? hover over the swatch (or tap on touch screen) to see the hex code. to expand or shrink the palette, use the plus/minus controls (right).</p>
                     </div>
+                    {/* slider to adjust lighting */}
                     <Form>
                         <Form.Group controlId="formBasicRangeCustom">
                             <Form.Control type="range" custom
@@ -308,10 +311,13 @@ class FullPalette extends React.Component {
                         </Form.Group>
                     </Form>
                 </div>
+                {/* swatches for generated palette */}
                 <div className = "swatch-collection">
                     {collection}
                 </div>
+                {/* right side panel */}
                 <div className = "control-panel textbox-l">
+                    {/* user controls */}
                     <div className = "icon-panel">
                         <button onClick = {this.addShades}><Plus className="icon" color="black"/></button>
                         <button onClick = {this.removeShades}><Dash className="icon" color="black"/></button>
@@ -326,15 +332,6 @@ class FullPalette extends React.Component {
             </div>
         );
     }
-
-    // <input
-    //     id = "lighting-slider"
-    //     type = "range"
-    //     min = "0" max = "360"
-    //     value = {this.state.lighting}
-    //     onChange = {this.handleChange}
-    //     step = "1"
-    // />
 }
 
 export default FullPalette;

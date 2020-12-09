@@ -3,37 +3,23 @@ import Card from 'react-bootstrap/Card';
 import { ChromePicker } from 'react-color';
 
 class ColorCard extends React.Component {
-    // render() {
-    //     return (
-    //         <Card>
-    //             sjdfaksdjfa;lksdjf
-    //             <Card.Body>
-    //                 <ColorPicker/>
-    //             </Card.Body>
-    //         </Card>
-    //     );
-    // }
-
     constructor(props) {
         super(props);
+        // set background to white
         this.state = {
             background: '#fff'
         };
         this.id = this.props.id;
     }
 
-    // componentDidMount() {
-    //     // this.props.updatePalette(this.id, "#ffffff");
-    //     console.log("i am mounted" + this.id);
-    // }
-
+    // set background to new color
     handleChange = (color) => {
         this.setState({
             background: color.hex
         });
-        // this.props.updatePalette(this.id, color.hex);
     };
 
+    // update palette in ColorStation
     handleChangeComplete = (color) => {
         this.props.updatePalette(this.id, color.hex);
     }

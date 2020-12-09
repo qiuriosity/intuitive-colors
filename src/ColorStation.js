@@ -6,6 +6,7 @@ import { Transition, CSSTransition } from 'react-transition-group';
 import { PlusCircle, DashCircle } from 'react-bootstrap-icons';
 import { Link } from "react-router-dom";
 
+// initialize palette w/four colors, default white
 var numCards = 4;
 var colors = {};
 for (let i = 0; i < numCards; i++) {
@@ -15,48 +16,17 @@ for (let i = 0; i < numCards; i++) {
 class ColorStation extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     numCards: 4,
-        //     colors: {}
-        // };
         this.state = {
-            colors: colors,
-            showPalette: false
+            colors: colors, // contains base palette
+            showPalette: false // for CSSTransition (controls palette animation)
         };
+
         this.updatePalette = this.updatePalette.bind(this);
         this.addCard = this.addCard.bind(this);
         this.removeCard = this.removeCard.bind(this);
     }
 
-    // componentDidMount() {
-    //     this.cards = [];
-    //     for (this.i = 0; i < this.state.numCards; i++) {
-    //         this.cards.push(<ColorCard key={i}/>)
-    //     }
-    //     this.setState({
-    //         cards: this.cards
-    //     })
-    // }
-
-    // var cards = [];
-    // for (let i = 0; i < this.state.numCards; i++) {
-    //     cards.push(<ColorCard key = {i}/>);
-    // }
-    //
-    // addCard = () => {
-    //     this.setState({
-    //         numCards: this.state.numCards + 1
-    //     });
-    //     cards.push(<ColorCard key = {this.state.numCards}>);
-    // };
-    //
-    // removeCard = (id) => {
-    //     cards.splice(0, id);
-    //     for (let i = id; i < cards.length; i++) {
-    //         cards[i].key--;
-    //     }
-    // }
-
+    // add a ColorCard and update colors dict
     addCard() {
         colors[numCards] = "#ffffff";
         numCards++;
@@ -65,21 +35,21 @@ class ColorStation extends React.Component {
         });
     }
 
+    // remove a ColorCard and update colors dict
     removeCard() {
-        delete colors[numCards - 1];
+        delete colors[numCards - 1]; // removes ColorCard at end
         numCards--;
         this.setState({
             colors: colors
         });
     }
 
+    /**
+    * @desc updates base palette with new color and ColorCar id
+    * @param id (int): id of ColorCard containing specific color
+    * @param hex (string): hex value of new color
+    */
     updatePalette(id, hex) {
-        // this.setState({
-        //     colors: {
-        //         ...this.state.colors,
-        //         [id]: hex
-        //     }
-        // });
         colors[id] = hex;
         this.setState({
             colors: colors
@@ -87,6 +57,7 @@ class ColorStation extends React.Component {
         this.props.setPalette(colors);
     }
 
+    // activates palette animation
     toggleDisplay = () => {
         this.setState({
             showPalette: true
@@ -96,6 +67,7 @@ class ColorStation extends React.Component {
     render() {
         var cards = [];
         var swatches = [];
+        // create ColorCards and corresponding swatches
         for (let i = 0; i < numCards; i++) {
             cards.push(<ColorCard key = {i} id = {i} updatePalette = {this.updatePalette}/>)
             swatches.push(<Swatch key = {i} color = {this.state.colors[i]}/>)
@@ -106,6 +78,7 @@ class ColorStation extends React.Component {
                 <div>
                     <h2>choose your base palette</h2>
                     <p className="prompt">use the color pickers below to select base colors for your project. (click +/- to change number of colors in the palette.)</p>
+                    {/* animating palette entrance */}
                     <CSSTransition
                         classNames = "palette"
                         in = {this.state.showPalette}
@@ -116,6 +89,7 @@ class ColorStation extends React.Component {
                         <div className="palette">{swatches}</div>
                     </CSSTransition>
                 </div>
+                {/* UI "station" containing ColorCards and +/- controls */}
                 <div className="color-station" onClick = {this.toggleDisplay}>
                     {cards}
                     <div className = "icon-panel-lg">
