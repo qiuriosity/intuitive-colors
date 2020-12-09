@@ -25,7 +25,8 @@
 }
 
 .Navbar {
-    margin: 10px 30px;;
+    margin: 10px 30px;
+    font-size: 16px;
 }
 
 .Navbar > * {
@@ -35,6 +36,10 @@
 
 .Navbar > *:hover {
     opacity: 1;
+}
+
+.Navbar *:hover {
+    text-decoration: none;
 }
 
 /* .App-link {
