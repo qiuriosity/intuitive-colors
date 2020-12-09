@@ -3,7 +3,7 @@ import ColorCard from './ColorCard';
 import Swatch from './Swatch';
 import Button from 'react-bootstrap/Button';
 import { Transition, CSSTransition } from 'react-transition-group';
-import { PlusCircle } from 'react-bootstrap-icons';
+import { PlusCircle, DashCircle } from 'react-bootstrap-icons';
 
 var numCards = 4;
 var colors = {};
@@ -24,6 +24,7 @@ class ColorStation extends React.Component {
         };
         this.updatePalette = this.updatePalette.bind(this);
         this.addCard = this.addCard.bind(this);
+        this.removeCard = this.removeCard.bind(this);
     }
 
     // componentDidMount() {
@@ -58,6 +59,14 @@ class ColorStation extends React.Component {
     addCard() {
         colors[numCards] = "#ffffff";
         numCards++;
+        this.setState({
+            colors: colors
+        });
+    }
+
+    removeCard() {
+        delete colors[numCards - 1];
+        numCards--;
         this.setState({
             colors: colors
         });
@@ -107,7 +116,10 @@ class ColorStation extends React.Component {
                 </div>
                 <div className="colorStation" onClick = {this.toggleDisplay}>
                     {cards}
-                    <button onClick = {this.addCard}><PlusCircle className="icon" color="black"/></button>
+                    <div className = "iconPanel-lg">
+                        <button onClick = {this.addCard}><PlusCircle className="icon" color="black"/></button>
+                        <button onClick = {this.removeCard}><DashCircle className="icon" color="black"/></button>
+                    </div>
                 </div>
                 <Button className="button" href="/palette" variant="outline-secondary">generate colors</Button>
             </div>

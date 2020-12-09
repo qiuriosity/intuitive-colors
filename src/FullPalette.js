@@ -130,9 +130,9 @@ function computeShade(hsl, lighting, magnitude) {
     let huePosition = modCalc(hue - lighting, 360);
     let shadeDiff = modCalc(hue - shade(lighting), 360);
     if (huePosition > 180) {
-        newHSL["h"] = modCalc(shade(lighting) + ((0.93 ** magnitude) * shadeDiff), 360);
+        newHSL["h"] = modCalc(shade(lighting) + ((0.92 ** magnitude) * shadeDiff), 360);
     } else if (huePosition < 180 && huePosition > 0) {
-        newHSL["h"] = modCalc(shade(lighting) - ((0.93 ** magnitude) * shadeDiff), 360);
+        newHSL["h"] = modCalc(shade(lighting) - ((0.92 ** magnitude) * shadeDiff), 360);
     } else {
         newHSL["h"] = hue;
     }
@@ -140,22 +140,35 @@ function computeShade(hsl, lighting, magnitude) {
     // ADJUSTING SATURATION AND VALUE
     // newHSL["s"] = saturation + (15 * magnitude);
     // newHSL["l"] = value - (15 * magnitude);
-    newHSL["s"] = saturation + (9 * magnitude);
-    newHSL["l"] = value - (9 * magnitude);
 
-    if (newHSL["s"] > 100) {
-        newHSL["s"] = 100;
-    } else if (newHSL["s"] < 0) {
-        newHSL["s"] = 0;
+    // newHSL["s"] = saturation + (9 * magnitude);
+    // newHSL["l"] = value - (9 * magnitude);
+    //
+    // if (newHSL["s"] > 100) {
+    //     newHSL["s"] = 100;
+    // } else if (newHSL["s"] < 0) {
+    //     newHSL["s"] = 0;
+    // }
+    //
+    // if (newHSL["l"] > 100) {
+    //     newHSL["l"] = 100;
+    // } else if (newHSL["l"] < 0) {
+    //     newHSL["l"] = 0;
+    // }
+
+    if (magnitude >= 0) {
+        let satDiff = 100 - saturation;
+        let valDiff = value;
+        newHSL["s"] = 100 - ((0.85 ** magnitude) * satDiff);
+        newHSL["l"] = (0.72 ** magnitude) * valDiff;
+    } else {
+        let satDiff = saturation;
+        let valDiff = 100 - value;
+        newHSL["s"] = (0.75 ** (-1 * magnitude)) * satDiff;
+        newHSL["l"] = 100 - ((0.80 ** (-1 * magnitude)) * valDiff);
     }
 
-    if (newHSL["l"] > 100) {
-        newHSL["l"] = 100;
-    } else if (newHSL["l"] < 0) {
-        newHSL["l"] = 0;
-    }
-
-    // console.log(newHSL);
+    console.log(newHSL);
     return HSLToHex(newHSL["h"], newHSL["s"], newHSL["l"]);
 }
 

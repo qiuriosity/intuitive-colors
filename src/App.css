@@ -118,6 +118,12 @@ button {
     background-color: transparent;
 }
 
+.iconPanel-lg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .icon {
     width: 30px;
     opacity: 50%;
