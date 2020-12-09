@@ -62,4 +62,39 @@ I ultimately decided on this structure for my project because my project relies 
 
 In the earlier stages of this project, I also had to figure out what to make into a separate component vs not. I wanted to make components for anything that had its own distinct functions. For example, each ColorCard has its own handleChange that doesn't require input from the ColorStation, so it made more sense to just separate the component out. Likewise, the ColorStation and FullPalette were separated from the App because 1) it helped reduce clutter and 2) they have their own distinct functions, like generating colors, that don't need to be on a more "global" scale. I also wanted to make a separate component for Swatch, because unlike some of the text or buttons in Swatch's parent components, Swatch is used many times in multiple locations. For each component, I included its relevant functions in the same file, since most components here didn't require a large number of helper functions.
 
+## a rundown of the color-generating algorithm in FullPalette
+
+I like to make digital art for fun, so I developed this algorithm primarily from the knowledge I've accumulated through my experience. I learned a lot of this stuff by watching artists on YouTube or looking at resources made by people on Tumblr, Pinterest, etc. For my project, [this website](https://www.w3schools.com/colors/colors_hsl.asp) helped me a lot with understanding HSL values in particular.
+
+### brief color theory & explanation of shading
+
+* *hue:* essentially the tint of the color itself (eg. red, orange, purple-blue, etc.)
+* *saturation:* how faded/strong the color is (0 saturation is gray, full saturation is a really vivid color)
+* *value/brightness:* how bright the color is (0 value is black, full value is white)
+* *shadows:* darker shades of the base color used to emphasize darker areas of the object
+* *highlights:* lighter shades of the base color used to emphasize lighter areas of the object
+
+The way I personally approach shading is using a [color wheel picker](https://i.stack.imgur.com/NYCBt.png), in which you can use one slider to adjust the hue of the color and another to adjust the value/saturation of that specific hue. Since these shifts translate well to changes in HSL value, I decided that any functions manipulating color in some way should work with the HSL values of the colors.
+
+In a typical environment, true shadows have a hue opposite that of the lighting source. For example, in natural yellow-ish lighting, shadows are blue-ish. Thus, when generating darker shades (shadows), we want to shift the hue slightly closer to blue, and vice versa for lighter shades (highlights). This isn't to say that the shadows will have a blue hue itself, but rather that it'll be closer to blue than lighter shades (eg. if the base color is red, a shadow might be pinkish-red, and an even darker shadow might be purple). Not only the hue will change; shadows will also have lower value (be darker in color) and higher saturation (have stronger color).
+
+Note that when you're shifting the hues closer to the true shadow hue (eg. blue), you want to move in the direction that's closer. Going back to the color wheel [here](https://i.stack.imgur.com/NYCBt.png), if your starting color is green, you want to move clockwise towards blue. If you're starting at pink, though, you should move counterclockwise rather than taking the long way.
+
+### some math (I guess)
+
+When I first implemented this algorithm, all the color transformations were linear (increasing the shadow resulted in an x amount of shift in hue, a y amount of change in saturation, and a z amount of change in value). This quickly began to cause issues for a number of reasons:
+
+* For hues, some shades that were already very close to the true shadow hue (eg. blue) would move past it after the transformation. This didn't make sense, because shadows should always be getting closer to the true shadow hue, never to the other side.
+* The lighting customization feature didn't cause any changes, which was because shifts in hue were the same regardless of lighting.
+* Darker base colors would produce a bunch of shadows that were just completely black, because even though a 10 unit decrease in value works for lighter base shades, it causes darker base shades to reach 0 value. The same was true for very light base colors; the value would simply become 0 and the highlights would be completely white.
+
+Thinking from the perspective of an actual person, if I'm closer to the target value (if my hue is already close to blue, or my saturation is already close to 100, or my value is already close to 0), I would want to shift my values by a smaller amount than if I were farther away. This would allow me to get closer and closer to the target value, but never quite reach it (which makes sense, since we wouldn't want to use true black or white as an actual shade).
+
+The current algorithm takes care of this issue; it calculates the difference between the current hue, saturation, and value and their target values. Then, it shifts the current values by a percentage of the difference. This ensures that colors farther from the target value will show more change, and colors that are already close to the target will show less. I went through and tested this with some different percentages to see what looked best.
+
 ### future improvements
+
+In terms of design, a couple of things I'd like to look into for the future:
+
+* Taking away the need for hex/HSL conversions when generating new color values for the shading palette.
+* Trying to reduce [prop drilling](https://kentcdodds.com/blog/prop-drilling), which is essentially when you have to pass the same prop or function through many different components in the hierarchy in order for a component on one end to communicate some info to a component on the other end. After completing my project, I've noticed there's some redundancy (ie. ColorStation essentially just passes all the base color values upwards to the App without actually doing much to them) that could potentially be reduced through one of [these](https://medium.com/@jeromefranco/how-to-avoid-prop-drilling-in-react-7e3a9f3c8674) solutions, but I need to spend more time with that to figure it out.
