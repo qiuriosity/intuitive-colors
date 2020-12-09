@@ -105,7 +105,7 @@ class ColorStation extends React.Component {
             <div>
                 <div>
                     <h2>choose your base palette</h2>
-                    <p className="prompt">use the color pickers below to select base colors for your project. (click + to add more colors to your palette.)</p>
+                    <p className="prompt">use the color pickers below to select base colors for your project. (click +/- to change number of colors in the palette.)</p>
                     <CSSTransition
                         classNames = "palette"
                         in = {this.state.showPalette}
@@ -116,9 +116,9 @@ class ColorStation extends React.Component {
                         <div className="palette">{swatches}</div>
                     </CSSTransition>
                 </div>
-                <div className="colorStation" onClick = {this.toggleDisplay}>
+                <div className="color-station" onClick = {this.toggleDisplay}>
                     {cards}
-                    <div className = "iconPanel-lg">
+                    <div className = "icon-panel-lg">
                         <button onClick = {this.addCard}><PlusCircle className="icon" color="black"/></button>
                         <button onClick = {this.removeCard}><DashCircle className="icon" color="black"/></button>
                     </div>

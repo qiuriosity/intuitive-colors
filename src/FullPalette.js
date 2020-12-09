@@ -285,12 +285,12 @@ class FullPalette extends React.Component {
                 swatches.push(<Swatch key = {i + (key * this.state.numShades)} color = {shades[i]}/>);
             }
 
-            collection.push(<div className = "swatchCol">{swatches}</div>);
+            collection.push(<div className = "swatch-col">{swatches}</div>);
         }
 
         return (
-            <div id = "paletteStation">
-                <div className = "sliderWidget rightText">
+            <div id = "palette-station">
+                <div className = "control-panel textbox-r">
                     <div>
                         <p><i>welcome to intuitive colors.</i></p>
                         <p>using a user-inputted base palette, intuitive colors generates a set of compatible shades and highlights by manipulating hsl values according to an algorithm.</p>
@@ -299,7 +299,7 @@ class FullPalette extends React.Component {
                     <Form>
                         <Form.Group controlId="formBasicRangeCustom">
                             <Form.Control type="range" custom
-                                className = "lightingSlider"
+                                className = "lighting-slider"
                                 min = "60" max = "420"
                                 value = {this.state.lighting}
                                 onChange = {this.handleChange}
@@ -308,18 +308,18 @@ class FullPalette extends React.Component {
                         </Form.Group>
                     </Form>
                 </div>
-                <div className = "swatchCollection">
+                <div className = "swatch-collection">
                     {collection}
                 </div>
-                <div className = "sliderWidget leftText">
-                    <div className = "iconPanel">
+                <div className = "control-panel textbox-l">
+                    <div className = "icon-panel">
                         <button onClick = {this.addShades}><Plus className="icon" color="black"/></button>
                         <button onClick = {this.removeShades}><Dash className="icon" color="black"/></button>
                         <button onClick = {this.intensify}><BrightnessHigh className="icon" color="black"/></button>
                         <button onClick = {this.deintensify}><BrightnessLow className="icon" color="black"/></button>
                     </div>
                     <div>
-                        <p>by default, intuitive colors generates colors based on a yellow lighting hue emulating that of natural light. for projects requiring more unique lighting or duller/more vibrant palettes, using the lighting slider and vibrancy controls will update the swatches to reflect your preferences. (mouse over a specific control to see a description of its function.)</p>
+                        <p>by default, intuitive colors generates colors based on a yellow lighting hue emulating that of natural light. for projects requiring more unique lighting or duller/more vibrant palettes, using the lighting slider (located on the left panel) and vibrancy controls (right panel) will update the swatches to reflect your preferences.</p>
                         <p>it is recommended to use the default lighting settings for projects involving standard shading and highlighting.</p>
                     </div>
                 </div>
@@ -328,7 +328,7 @@ class FullPalette extends React.Component {
     }
 
     // <input
-    //     id = "lightingSlider"
+    //     id = "lighting-slider"
     //     type = "range"
     //     min = "0" max = "360"
     //     value = {this.state.lighting}

@@ -24,13 +24,13 @@ class Swatch extends React.Component {
     render() {
         // console.log(this.state.color);
         return (
-            // <div className="circleSwatch" style={{backgroundColor: this.props.color, width: 50, height: 50}}></div>
+            // <div className="circle-swatch" style={{backgroundColor: this.props.color, width: 50, height: 50}}></div>
             <OverlayTrigger
                 placement="bottom"
                 trigger = {["hover", "focus"]}
                 overlay={<Tooltip id="button-tooltip-2">{this.props.color}</Tooltip>}
             >
-                <div className="circleSwatch"
+                <div className="circle-swatch"
                     style={{backgroundColor: this.props.color}}>
                 </div>
             </OverlayTrigger>
@@ -38,7 +38,7 @@ class Swatch extends React.Component {
     }
 
     // {({ ref, ...triggerHandler }) => (
-    //     <div className="circleSwatch"
+    //     <div className="circle-swatch"
     //         {...triggerHandler}
     //         style={{backgroundColor: this.props.color, width: 50, height: 50}}>
     //     </div>
