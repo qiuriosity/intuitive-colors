@@ -42,18 +42,18 @@ class App extends React.Component {
         console.log(this.state.palette);
         return (
             <div className="App">
-                <Navbar className="Navbar" bg="#fbfbf8" fixed="top">
-                    <Navbar.Brand href="/">intuitive colors</Navbar.Brand>
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/#/">home</Nav.Link>
-                        <Nav.Link href="https://github.com/seijoh/intuitive-colors">documentation</Nav.Link>
-                    </Nav>
-                    <Navbar.Text>
-                        <a href="https://github.com/seijoh">&#169; seijoh</a> on github for cs50.
-                    </Navbar.Text>
-                </Navbar>
                 <div className="App-body">
                     <Router basename="/">
+                        <Navbar className="Navbar" bg="#fbfbf8" fixed="top">
+                            <Navbar.Brand href="/">intuitive colors</Navbar.Brand>
+                            <Nav className="mr-auto">
+                                <Link to="/"><Nav.Link>home</Nav.Link></Link>
+                                <Nav.Link href="https://github.com/seijoh/intuitive-colors">documentation</Nav.Link>
+                            </Nav>
+                            <Navbar.Text>
+                                <a href="https://github.com/seijoh">&#169; seijoh</a> on github for cs50.
+                            </Navbar.Text>
+                        </Navbar>
                         <Switch>
                             <Route path = "/palette">
                                 <FullPalette setPalette = {this.setPalette} base = {this.state.palette}/>
