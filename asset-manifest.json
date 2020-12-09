@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/intuitive-colors/static/css/main.e7f64ee3.chunk.css",
-    "main.js": "/intuitive-colors/static/js/main.3b757d89.chunk.js",
-    "main.js.map": "/intuitive-colors/static/js/main.3b757d89.chunk.js.map",
+    "main.js": "/intuitive-colors/static/js/main.378bff44.chunk.js",
+    "main.js.map": "/intuitive-colors/static/js/main.378bff44.chunk.js.map",
     "runtime-main.js": "/intuitive-colors/static/js/runtime-main.ff86d8a6.js",
     "runtime-main.js.map": "/intuitive-colors/static/js/runtime-main.ff86d8a6.js.map",
     "static/css/2.20aa2d7b.chunk.css": "/intuitive-colors/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.aecfd8ac.chunk.js": "/intuitive-colors/static/js/2.aecfd8ac.chunk.js",
-    "static/js/2.aecfd8ac.chunk.js.map": "/intuitive-colors/static/js/2.aecfd8ac.chunk.js.map",
+    "static/js/2.ce31b1f1.chunk.js": "/intuitive-colors/static/js/2.ce31b1f1.chunk.js",
+    "static/js/2.ce31b1f1.chunk.js.map": "/intuitive-colors/static/js/2.ce31b1f1.chunk.js.map",
     "static/js/3.9248113f.chunk.js": "/intuitive-colors/static/js/3.9248113f.chunk.js",
     "static/js/3.9248113f.chunk.js.map": "/intuitive-colors/static/js/3.9248113f.chunk.js.map",
     "index.html": "/intuitive-colors/index.html",
     "static/css/2.20aa2d7b.chunk.css.map": "/intuitive-colors/static/css/2.20aa2d7b.chunk.css.map",
     "static/css/main.e7f64ee3.chunk.css.map": "/intuitive-colors/static/css/main.e7f64ee3.chunk.css.map",
-    "static/js/2.aecfd8ac.chunk.js.LICENSE.txt": "/intuitive-colors/static/js/2.aecfd8ac.chunk.js.LICENSE.txt"
+    "static/js/2.ce31b1f1.chunk.js.LICENSE.txt": "/intuitive-colors/static/js/2.ce31b1f1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ff86d8a6.js",
     "static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.aecfd8ac.chunk.js",
+    "static/js/2.ce31b1f1.chunk.js",
     "static/css/main.e7f64ee3.chunk.css",
-    "static/js/main.3b757d89.chunk.js"
+    "static/js/main.378bff44.chunk.js"
   ]
 }
