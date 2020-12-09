@@ -123,7 +123,7 @@ class ColorStation extends React.Component {
                         <button onClick = {this.removeCard}><DashCircle className="icon" color="black"/></button>
                     </div>
                 </div>
-                <Link to="/palette"><Button className="button" variant="outline-secondary">generate colors</Button></Link>
+                <Button className="button" variant="outline-secondary" as={Link} to="/palette">generate colors</Button>
             </div>
         );
     }

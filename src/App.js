@@ -45,9 +45,9 @@ class App extends React.Component {
                 <div className="App-body">
                     <Router basename="/">
                         <Navbar className="Navbar" bg="#fbfbf8" fixed="top">
-                            <Link to="/"><Navbar.Brand>intuitive colors</Navbar.Brand></Link>
+                            <Navbar.Brand as={Link} to="/">intuitive colors</Navbar.Brand>
                             <Nav className="mr-auto">
-                                <Link to="/"><Nav.Link>home</Nav.Link></Link>
+                                <Nav.Link as={Link} to="/">home</Nav.Link>
                                 <Nav.Link href="https://github.com/seijoh/intuitive-colors">documentation</Nav.Link>
                             </Nav>
                             <Navbar.Text>
