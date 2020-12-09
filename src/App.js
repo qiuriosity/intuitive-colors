@@ -54,7 +54,7 @@ class App extends React.Component {
                     </Navbar.Text>
                 </Navbar>
                 <div className="App-body">
-                    <Router baseName="/">
+                    <Router basename="/">
                         <Switch>
                             <Route path = "/palette">
                                 <FullPalette setPalette = {this.setPalette} base = {this.state.palette}/>
