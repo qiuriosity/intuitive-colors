@@ -6,6 +6,11 @@ import { Transition, CSSTransition } from 'react-transition-group';
 import { PlusCircle, DashCircle } from 'react-bootstrap-icons';
 import { Link } from "react-router-dom";
 
+/* help w/CSSTransition:
+https://blog.logrocket.com/improve-your-ui-with-react-transition-group-999fa35f7cae/
+http://reactcommunity.org/react-transition-group/transition
+https://blog.bitsrc.io/animating-reactjs-with-react-transition-group-2af6c87cab0c */
+
 // initialize palette w/four colors, default white
 var numCards = 4;
 var colors = {};
