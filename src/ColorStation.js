@@ -4,6 +4,7 @@ import Swatch from './Swatch';
 import Button from 'react-bootstrap/Button';
 import { Transition, CSSTransition } from 'react-transition-group';
 import { PlusCircle, DashCircle } from 'react-bootstrap-icons';
+import { Link } from "react-router-dom";
 
 var numCards = 4;
 var colors = {};
@@ -110,6 +111,7 @@ class ColorStation extends React.Component {
                         in = {this.state.showPalette}
                         unmountOnExit
                         appear = {true}
+                        timeout = {0}
                     >
                         <div className="palette">{swatches}</div>
                     </CSSTransition>
@@ -121,7 +123,7 @@ class ColorStation extends React.Component {
                         <button onClick = {this.removeCard}><DashCircle className="icon" color="black"/></button>
                     </div>
                 </div>
-                <Button className="button" href="/palette" variant="outline-secondary">generate colors</Button>
+                <Link to="/palette"><Button className="button"variant="outline-secondary">generate colors</Button></Link>
             </div>
         );
     }
