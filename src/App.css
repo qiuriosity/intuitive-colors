@@ -29,12 +29,12 @@
 }
 
 .Navbar > * {
-    opacity: 80%;
+    opacity: 0.80;
     transition: opacity 0.5s;
 }
 
 .Navbar > *:hover {
-    opacity: 100%;
+    opacity: 1;
 }
 
 /* .App-link {
@@ -66,12 +66,12 @@ h2 {
 
 .colorStation > * {
     margin: 10px 20px;
-    opacity: 85%;
+    opacity: 0.85;
     transition: opacity 0.5s;
 }
 
 .colorStation > *:hover {
-    opacity: 100%;
+    opacity: 1;
 }
 
 .squareSwatch {
@@ -87,12 +87,12 @@ h2 {
 }
 
 .palette-enter-active {
-    opacity: 0%;
+    opacity: 0;
     height: 0px;
 }
 
 .palette-enter-done {
-    opacity: 100%;
+    opacity: 1;
     height: 90px;
     transition: opacity 1s, height 0.75s;
     transition-delay: 0.5s, 0s;
@@ -126,12 +126,12 @@ button {
 
 .icon {
     width: 30px;
-    opacity: 50%;
+    opacity: 0.50;
     transition: opacity 0.5s;
 }
 
 .icon:hover {
-    opacity: 100%;
+    opacity: 1;
 }
 
 .button {
