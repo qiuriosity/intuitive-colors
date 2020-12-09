@@ -49,3 +49,5 @@ Changing the lighting is simple: use the slider on the left panel to adjust the 
 # credits & implementation details
 
 Color pickers are sourced from [this collection](https://casesandberg.github.io/react-color/). Additionally: some UI features implemented through [React Bootstrap](https://react-bootstrap.github.io/), & hex/HSL conversion functions sourced from [here](https://css-tricks.com/converting-color-spaces-in-javascript/).
+
+Note: if viewing for CS50, please note that DESIGN.md does not exist on the GitHub repository (please view from local files!).
