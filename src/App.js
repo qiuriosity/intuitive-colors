@@ -58,7 +58,7 @@ class App extends React.Component {
                                 <Nav.Link href="https://github.com/seijoh/intuitive-colors">documentation</Nav.Link>
                             </Nav>
                             <Navbar.Text>
-                                <a href="https://github.com/seijoh">&#169; seijoh</a> on github for cs50.
+                                <a href="https://github.com/seijoh">&#169; seijoh</a> on github 2020.
                             </Navbar.Text>
                         </Navbar>
                         {/* routing for ColorStation/FullPalette */}
