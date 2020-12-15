@@ -2,7 +2,7 @@
   "name": "intuitive-colors",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://seijoh.github.io/intuitive-colors",
+  "homepage": "http://qiuriosity.github.io/intuitive-colors",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
