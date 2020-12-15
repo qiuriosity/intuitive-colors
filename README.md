@@ -16,7 +16,7 @@ After navigating to the project directory in terminal, execute `yarn start` to s
 
 *I don't have yarn:* using `npm start` and `npm install` should also work.
 
-Alternatively, if running the application locally doesn't work, it has also been deployed to [this link](https://seijoh.github.io/intuitive-colors/).
+Alternatively, if running the application locally doesn't work, it has also been deployed to [this link](https://qiuriosity.github.io/intuitive-colors/).
 
 ## selecting base palette
 

@@ -55,10 +55,10 @@ class App extends React.Component {
                             <Navbar.Brand as={Link} to="/">intuitive colors</Navbar.Brand>
                             <Nav className="mr-auto">
                                 <Nav.Link as={Link} to="/">home</Nav.Link>
-                                <Nav.Link href="https://github.com/seijoh/intuitive-colors">documentation</Nav.Link>
+                                <Nav.Link href="https://github.com/qiuriosity/intuitive-colors">documentation</Nav.Link>
                             </Nav>
                             <Navbar.Text>
-                                <a href="https://github.com/seijoh">&#169; seijoh</a> on github 2020.
+                                <a href="https://github.com/qiuriosity">&#169; eq</a> on github 2020.
                             </Navbar.Text>
                         </Navbar>
                         {/* routing for ColorStation/FullPalette */}
